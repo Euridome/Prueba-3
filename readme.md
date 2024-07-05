@@ -1,2 +1,3 @@
 <h1>Esta es mi prueba 3 corregida</h1>
-Me saque un 1 por no saber hacerlo juasjuasjuas
+<p>Hasta ahora he corregido y añadido varias cosas al codigo</p>
+<p>Añadi una funcion JSON y una TXT, comentarios para mejor lectura, etc.</p>
