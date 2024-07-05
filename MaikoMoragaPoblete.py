@@ -13,7 +13,7 @@ def liquido(sueldobase):
     return sueldobase - dsalud - dafp
 #Definiciones principales
 def menu():
-    print("1. Asignar sueldos aleatorios\n2. Clasificar sueldos\n3. Reporte de sueldos\n4. Exportar a JSON\n5. Salir|")
+    print("1. Asignar sueldos aleatorios\n2. Clasificar sueldos\n3. Reporte de sueldos\n4. Exportar a JSON\n5. Exportar a TXT\n6. Salir")
 def sueldos_aleatorios():
     for trabajador in trabajadores:
         sueldo = random.randint(300000,2500000)
@@ -78,6 +78,16 @@ def jabon():
     with open("archivo.json","w") as archivo_json:
         json.dump(diccionario_trabajadores,archivo_json,indent=4)
     print("Datos exportados a JSON exitosamente")
+def texto():
+    with open("archivo.txt","w") as archivo_txt:
+        for persona, datos in diccionario_trabajadores.items():
+            archivo_txt.write(f"Nombre empleado: {persona}\n")
+            archivo_txt.write(f"Sueldo base: ${datos["sueldo_base"]:,}".replace(",",".") + "\n")
+            archivo_txt.write(f"Descuento Salud: ${datos["descuento_salud"]:,}".replace(",",".") + "\n")
+            archivo_txt.write(f"Descuento AFP: ${datos["descuento_afp"]:,}".replace(",",".") + "\n")
+            archivo_txt.write(f"Sueldo Liquido: ${datos["sueldo_liquido"]:,}".replace(",",".") + "\n")
+            archivo_txt.write("\n")
+    print("Datos exportados a TXT de manera exitosa.")
 def esperar():
     global tecla
     tecla = input("Ingrese tecla cualquiera para continuar.")
@@ -112,6 +122,10 @@ def app():
                     jabon()
                     esperar()
                 elif op == 5:
+                    limpiar()
+                    texto()
+                    esperar()
+                elif op == 6:
                     limpiar()
                     print("Finalizando Programa....\nDesarrollado por Maiko Moraga\nRUT 20.871.562-3")
                     break
