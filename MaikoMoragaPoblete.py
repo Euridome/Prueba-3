@@ -11,7 +11,7 @@ def liquido(sueldobase):
     dsalud = salud(sueldobase)
     dafp = afp(sueldobase)
     return sueldobase - dsalud - dafp
-#Definiciones principales
+#Definiciones principales caca
 def menu():
     print("1. Asignar sueldos aleatorios\n2. Clasificar sueldos\n3. Reporte de sueldos\n4. Exportar a JSON\n5. Exportar a TXT\n6. Salir")
 def sueldos_aleatorios():
