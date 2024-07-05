@@ -17,6 +17,8 @@ def menu():
 def sueldos_aleatorios():
     for trabajador in trabajadores:
         sueldo = random.randint(300000,2500000)
+        #Esta parte añade a cada trabajador en la lista trabajadores, un sueldo aleatorio entre 300.000 y 2.500.000
+        #ademas de agregar un apartado de descuento de salud, afp y el sueldo liquido, todo esto en el diccionario_trabajadores
         diccionario_trabajadores[trabajador] = {
             "sueldo_base": sueldo,
             "descuento_salud": int(salud(sueldo)),
@@ -35,6 +37,8 @@ def clasificar_sueldos(diccionario_trabajadores):
     }
     total = 0
     for trabajador, datos in diccionario_trabajadores.items():
+        #Esta parte del codigo usa la variable datos y la transforma en la variable sueldo para clasificarla segun indica rango_sueldo
+        #ademas contiene contadores para cada rango de sueldo
         sueldo = datos["sueldo_base"]
         total += sueldo
         if sueldo < 800000:
@@ -48,6 +52,8 @@ def clasificar_sueldos(diccionario_trabajadores):
             rango_sueldo["Mayor que 2.000.000"].append((trabajador,sueldo))
     return rango_sueldo
 def impresion():
+    #la variable rangos usa la funcion clasificar_sueldos para generar de manera ordenada la variable rango_sueldo y usarla para imprimir
+    #en pantalla el rango, el total de personas en ese rango, el nombre del empleado, su sueldo y el total de todos los sueldos de los empleados
     rangos = clasificar_sueldos(diccionario_trabajadores)
     for rango, lista in rangos.items():
         print(f"Sueldos {rango} TOTAL: {len(lista)}")
@@ -57,28 +63,32 @@ def impresion():
         print()
     print(f"TOTAL SUELDOS: ${total:,}".replace(',', '.'))
 def reporte(diccionario_trabajadores):
-    print(f"{"Nombre Empleado":<20}  {"Sueldo Base":<15}  {"Descuento Salud":<18}  {"Descuento AFP":<18}  {"Sueldo Liquido":<15}")
+    #esta funcion trabaja de manera igual a la funcion impresion, pero esta imprime los datos de todas las variables dentro de diccionario_trabajadores
+    print(f"{"Nombre Empleado":<20} {"Sueldo Base":<15}  {"Descuento Salud":<18}  {"Descuento AFP":<18}  {"Sueldo Liquido":<15}")
     for persona, datos in diccionario_trabajadores.items():
         sueldobase = datos["sueldo_base"]
-        dsalud = int(salud(sueldobase))
-        dafp = int(afp(sueldobase))
-        s_liquido = int(liquido(sueldobase))
+        dsalud = datos["descuento_salud"]
+        dafp = datos["descuento_afp"]
+        s_liquido = datos["sueldo_liquido"]
         print(f"{persona:<20} ${sueldobase:<15,} ${dsalud:<18,} ${dafp:<18,} ${s_liquido:<15,}".replace(",","."))
 def excel():
+    #esta funcion solo hace que se cree un archivo csv con los datos de diccionario_trabajadores dentro
     with open("archivo.csv","w", newline="") as archivo:
         escritor_csv = csv.writer(archivo)
         escritor_csv.writerow(["Nombre Empleado","Sueldo Base","Descuento Salud","Descuento AFP","Sueldo Liquido"])
         for persona, datos in diccionario_trabajadores.items():
             sueldobase = datos["sueldo_base"]
-            dsalud = int(salud(sueldobase))
-            dafp = int(afp(sueldobase))
-            s_liquido = int(liquido(sueldobase))
+            dsalud = datos["descuento_salud"]
+            dafp = datos["descuento_afp"]
+            s_liquido = datos["sueldo_liquido"]
             escritor_csv.writerow([persona,sueldobase,dsalud,dafp,s_liquido])
 def jabon():
+    #esta funcion solo hace que se cree un archivo json con los datos de diccionario_trabajadores dentro
     with open("archivo.json","w") as archivo_json:
         json.dump(diccionario_trabajadores,archivo_json,indent=4)
     print("Datos exportados a JSON exitosamente")
 def texto():
+    #esta funcion solo hace que se cree un archivo txt con los datos de diccionario_trabajadores dentro
     with open("archivo.txt","w") as archivo_txt:
         for persona, datos in diccionario_trabajadores.items():
             archivo_txt.write(f"Nombre empleado: {persona}\n")
@@ -89,6 +99,7 @@ def texto():
             archivo_txt.write("\n")
     print("Datos exportados a TXT de manera exitosa.")
 def esperar():
+    #esta funcion hace un espacio para que de tiempo a leer lo que pasa dentro del codigo y no se salte automaticamente los datos
     global tecla
     tecla = input("Ingrese tecla cualquiera para continuar.")
 def app():
