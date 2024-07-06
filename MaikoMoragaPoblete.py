@@ -1,7 +1,8 @@
-import random, os, csv, json
+import random, os, csv, json, math
 limpiar = lambda: os.system("cls")
 trabajadores = ["Juan Perez","Maria Garcia","Carlos Lopez","Ana Martinez","Pedro Rodriguez","Laura Hernandez","Miguel Sanchez","Isabel Gomez","Francisco Diaz","Elena Fernandez"]
 diccionario_trabajadores = {}
+total = None
 #Definiciones aritmeticas
 def salud(sueldo):
     return sueldo * 0.07
@@ -13,7 +14,7 @@ def liquido(sueldobase):
     return sueldobase - dsalud - dafp
 #Definiciones principales caca
 def menu():
-    print("1. Asignar sueldos aleatorios\n2. Clasificar sueldos\n3. Reporte de sueldos\n4. Exportar a JSON\n5. Exportar a TXT\n6. Salir")
+    print("1. Asignar sueldos aleatorios\n2. Clasificar sueldos\n3. Reporte de sueldos\n4. Exportar a JSON\n5. Exportar a TXT\n6. Estadisticas\n7. Salir")
 def sueldos_aleatorios():
     for trabajador in trabajadores:
         sueldo = random.randint(300000,2500000)
@@ -102,6 +103,21 @@ def esperar():
     #esta funcion hace un espacio para que de tiempo a leer lo que pasa dentro del codigo y no se salte automaticamente los datos
     global tecla
     tecla = input("Ingrese tecla cualquiera para continuar.")
+def promedio():
+    if total == None:
+        print("para obtener el promedio de trabajadores primero ejecute la opcion 2.")
+    else:
+        prom = int(total / 10)
+        print(f"El promedio de sueldo de los trabajadores es: ${prom:,}".replace(",","."))
+def estadisticas():
+    if not diccionario_trabajadores:
+        print("No hay datos de trabajadores, por favor primero ingrese la opcion 1.")
+        return None, None
+    mayor_sueldo = max(diccionario_trabajadores, key=lambda k: diccionario_trabajadores[k]["sueldo_base"])
+    menor_sueldo = min(diccionario_trabajadores, key=lambda k: diccionario_trabajadores[k]["sueldo_base"])
+    print(f"El empleado con mayor sueldo es: {mayor_sueldo} y su sueldo es: ${diccionario_trabajadores[mayor_sueldo]["sueldo_base"]:,}".replace(",","."))
+    print(f"El empleado con menor sueldo es: {menor_sueldo} y su sueldo es: ${diccionario_trabajadores[menor_sueldo]["sueldo_base"]:,}".replace(",","."))
+    return mayor_sueldo, menor_sueldo
 def app():
     try:
         global contadorantibombasnucleares
@@ -137,6 +153,11 @@ def app():
                     texto()
                     esperar()
                 elif op == 6:
+                    limpiar()
+                    promedio()
+                    estadisticas()
+                    esperar()
+                elif op == 7:
                     limpiar()
                     print("Finalizando Programa....\nDesarrollado por Maiko Moraga\nRUT 20.871.562-3")
                     break
