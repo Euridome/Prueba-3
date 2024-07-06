@@ -118,6 +118,15 @@ def estadisticas():
     print(f"El empleado con mayor sueldo es: {mayor_sueldo} y su sueldo es: ${diccionario_trabajadores[mayor_sueldo]["sueldo_base"]:,}".replace(",","."))
     print(f"El empleado con menor sueldo es: {menor_sueldo} y su sueldo es: ${diccionario_trabajadores[menor_sueldo]["sueldo_base"]:,}".replace(",","."))
     return mayor_sueldo, menor_sueldo
+def media_geometrica():
+    if not diccionario_trabajadores:
+        print("No hay datos de trabajadores, por favor ingrese primero la opcion 1.")
+        return None
+    sueldos = [datos["sueldo_base"] for datos in diccionario_trabajadores.values()]
+    producto = math.prod(sueldos)
+    media_geo = int(producto ** (1 / len(sueldos)))
+    print(f"La media geometrica de los sueldos es: ${media_geo:,}".replace(",","."))
+    return media_geo
 def app():
     try:
         global contadorantibombasnucleares
@@ -156,6 +165,7 @@ def app():
                     limpiar()
                     promedio()
                     estadisticas()
+                    media_geometrica()
                     esperar()
                 elif op == 7:
                     limpiar()
